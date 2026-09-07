@@ -1,13 +1,16 @@
 {
   "name": "exodus-travel",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "EXODUS TRAVEL - Booking Platform",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "build": "npm install",
+    "postinstall": "npm rebuild sqlite3 --build-from-source",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["travel", "booking", "africa"],
+  "author": "EXODUS TRAVEL",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
