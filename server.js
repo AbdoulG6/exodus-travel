@@ -33,6 +33,7 @@ const paymentController = require('./controllers/paymentController');
 // ===== SÉCURITÉ =====
 
 // Helmet - Configuré pour autoriser les scripts inline
+// Helmet - Configuré pour autoriser les scripts inline
 app.use(helmet({
     contentSecurityPolicy: {
         directives: {
@@ -44,10 +45,7 @@ app.use(helmet({
             connectSrc: ["'self'"],
             workerSrc: ["'self'", "blob:"]
         }
-    },
-    crossOriginEmbedderPolicy: false,
-    crossOriginOpenerPolicy: false,
-    crossOriginResourcePolicy: false
+    }
 }));
 
 // Rate Limiting - Protection contre les attaques
