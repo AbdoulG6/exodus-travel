@@ -33,19 +33,20 @@ const paymentController = require('./controllers/paymentController');
 // ===== SÉCURITÉ =====
 
 // Helmet - Configuré pour autoriser les scripts inline
-// Helmet - Configuré pour autoriser les scripts inline
 app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "cdnjs.cloudflare.com"],
-            styleSrc: ["'self'", "'unsafe-inline'", "cdnjs.cloudflare.com", "fonts.googleapis.com"],
-            imgSrc: ["'self'", "data:", "images.unsplash.com", "api.qrserver.com"],
-            fontSrc: ["'self'", "data:", "fonts.googleapis.com", "fonts.gstatic.com"],
-            connectSrc: ["'self'"],
-            workerSrc: ["'self'", "blob:"]
-        }
-    }
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: false,
+    crossOriginResourcePolicy: false,
+    dnsPrefetchControl: false,
+    frameguard: false,
+    hidePoweredBy: false,
+    hsts: false,
+    ieNoOpen: false,
+    noSniff: false,
+    permittedCrossDomainPolicies: false,
+    referrerPolicy: false,
+    xssFilter: false
 }));
 
 // Rate Limiting - Protection contre les attaques
