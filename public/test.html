@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test EXODUS</title>
+</head>
+<body>
+    <h1 style="color:red;">EXODUS TRAVEL - Test</h1>
+    <div id="result">Chargement...</div>
+    
+    <script>
+        fetch('/admin/stats')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = 
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch(err => {
+                document.getElementById('result').innerHTML = 
+                    'Erreur: ' + err.message;
+            });
+    </script>
+</body>
+</html>

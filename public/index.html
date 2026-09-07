@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXODUS TRAVEL - Votre voyage en Afrique de l'Ouest</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts avec fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES ===== */
+        :root {
+            --primary: #1A3A2F;
+            --primary-light: #2D5A47;
+            --primary-dark: #0F261E;
+            --secondary: #D4A843;
+            --secondary-light: #F0DFA0;
+            --gold-gradient: linear-gradient(135deg, #D4A843 0%, #F0DFA0 50%, #D4A843 100%);
+            
+            --dark: #1A1A1A;
+            --gray-900: #1A202C;
+            --gray-800: #2D3748;
+            --gray-600: #718096;
+            --gray-400: #A0AEC0;
+            --gray-200: #E2E8F0;
+            --gray-100: #F7FAFC;
+            --white: #FFFFFF;
+            
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+            --shadow-xl: 0 30px 80px rgba(0,0,0,0.2);
+            
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--gray-100);
+            color: var(--gray-800);
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 58, 47, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8em;
+            font-weight: 900;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .logo span {
+            background: var(--gold-gradient);
+            color: var(--primary-dark);
+            padding: 2px 12px;
+            border-radius: 6px;
+            font-size: 0.7em;
+            font-family: var(--font-sans);
+        }
+
+        .logo small {
+            font-size: 0.4em;
+            display: block;
+            color: rgba(255,255,255,0.6);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        /* ===== BOUTON NAVIGATION ===== */
+        .btn-nav {
+            background: var(--gold-gradient);
+            color: var(--primary-dark);
+            padding: 10px 24px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font-sans);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(212, 168, 67, 0.4);
+        }
+
+        /* ===== BOUTON PRINCIPAL ===== */
+        .btn-primary {
+            background: var(--gold-gradient);
+            color: var(--primary-dark);
+            padding: 14px 32px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font-sans);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 168, 67, 0.4);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600') center/cover,
+                radial-gradient(ellipse at center, rgba(26,58,47,0.3) 0%, rgba(15,38,30,0.8) 100%);
+            background-blend-mode: overlay;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212, 168, 67, 0.15);
+            border: 1px solid rgba(212, 168, 67, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85em;
+            color: var(--secondary-light);
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+            color: var(--white);
+        }
+
+        .hero-stats .stat {
+            text-align: center;
+        }
+
+        .hero-stats .stat .number {
+            font-family: var(--font-serif);
+            font-size: 2.2em;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stats .stat .label {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        /* ===== SECTION ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header .subtitle {
+            display: inline-block;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: var(--gray-600);
+            max-width: 500px;
+            margin: 12px auto 0;
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab {
+            background: var(--white);
+            border: 2px solid transparent;
+            padding: 14px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: var(--transition);
+            color: var(--gray-600);
+            box-shadow: var(--shadow-sm);
+            font-family: var(--font-sans);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab i {
+            font-size: 1.1em;
+        }
+
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(26, 58, 47, 0.3);
+        }
+
+        /* ===== CARDS ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #e2e8f0;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .card-badge i {
+            color: var(--secondary);
+        }
+
+        .card-type {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: var(--gold-gradient);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75em;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .card-location {
+            color: var(--gray-600);
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .card-location i {
+            margin-right: 6px;
+            color: var(--secondary);
+        }
+
+        .card-rating {
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .card-rating .rating-text {
+            color: var(--gray-600);
+            font-size: 0.8em;
+            margin-left: 6px;
+        }
+
+        .departure-date {
+            font-size: 0.85em;
+            color: var(--gray-600);
+            margin: 8px 0;
+        }
+
+        .departure-date i {
+            color: var(--secondary);
+            margin-right: 6px;
+        }
+
+        .availability {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin: 8px 0;
+        }
+
+        .availability.good {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .availability.low {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .card-price {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 12px 0 6px;
+        }
+
+        .card-price small {
+            font-size: 0.6em;
+            font-weight: 400;
+            color: var(--gray-600);
+        }
+
+        .card-desc {
+            color: var(--gray-600);
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        /* ===== BOUTON RÉSERVER ===== */
+        .btn-book {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1em;
+            transition: var(--transition);
+            font-family: var(--font-sans);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-book:hover:not(.disabled) {
+            background: var(--gold-gradient);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(212, 168, 67, 0.3);
+        }
+
+        .btn-book.disabled {
+            background: var(--gray-400);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            max-width: 520px;
+            width: 100%;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(0.9) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4em;
+            color: var(--primary-dark);
+        }
+
+        .modal-header h3 i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+
+        .close-modal {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gray-100);
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--gray-600);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: var(--gray-200);
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: var(--gray-800);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 1em;
+            font-family: var(--font-sans);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(212, 168, 67, 0.1);
+        }
+
+        .service-preview {
+            padding: 12px 16px;
+            background: var(--gray-100);
+            border-radius: var(--radius-sm);
+            color: var(--gray-800);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--gold-gradient);
+            color: var(--primary-dark);
+            border: none;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1em;
+            transition: var(--transition);
+            font-family: var(--font-sans);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(212, 168, 67, 0.4);
+        }
+
+        .btn-cancel {
+            background: var(--gray-200);
+            color: var(--gray-600);
+            margin-top: 10px;
+        }
+
+        .btn-cancel:hover {
+            background: var(--gray-300);
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ===== RESULT ===== */
+        .result-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            animation: modalIn 0.4s ease;
+        }
+
+        .success-message {
+            color: #27ae60;
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .success-message i {
+            margin-right: 10px;
+        }
+
+        .qr-code img {
+            max-width: 180px;
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin: 20px 0;
+        }
+
+        .btn-new-search {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: var(--font-sans);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-new-search:hover {
+            background: var(--gold-gradient);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--gray-600);
+        }
+
+        .loading i {
+            font-size: 2em;
+            color: var(--secondary);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 40px 30px;
+            margin-top: 40px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer h4 {
+            font-family: var(--font-serif);
+            font-size: 1.1em;
+            margin-bottom: 16px;
+            color: var(--secondary-light);
+        }
+
+        .footer p, .footer a {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            font-size: 0.9em;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .footer a:hover {
+            color: var(--secondary-light);
+        }
+
+        .footer .social {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .footer .social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .footer .social a:hover {
+            background: var(--secondary);
+            color: var(--primary-dark);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 24px;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85em;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero-stats {
+                gap: 30px;
+                flex-wrap: wrap;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                padding: 24px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 100px 16px 60px;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .tab {
+                padding: 10px 20px;
+                font-size: 0.85em;
+            }
+            .container {
+                padding: 30px 16px;
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="logo" onclick="window.location.href='/'">
+            EXODUS<span>TRAVEL</span>
+            <small>Sierra Leone Limited</small>
+        </div>
+        <nav class="nav-links">
+            <a onclick="loadServices('transports')"><i class="fas fa-bus"></i> Transports</a>
+            <a onclick="loadServices('hotels')"><i class="fas fa-hotel"></i> Hôtels</a>
+            <a onclick="loadServices('restaurants')"><i class="fas fa-utensils"></i> Restaurants</a>
+            <a onclick="loadServices('parks')"><i class="fas fa-tree"></i> Parcs</a>
+            <button class="btn-nav" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+                <i class="fas fa-search"></i> Explorer
+            </button>
+        </nav>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-compass"></i> Découvrez l'Afrique de l'Ouest
+            </div>
+            <h1>
+                Voyagez au cœur de<br>
+                <span class="highlight">l'Afrique de l'Ouest</span>
+            </h1>
+            <p>
+                Réservez vos transports, hôtels, restaurants et parcs nationaux 
+                en toute simplicité avec EXODUS TRAVEL.
+            </p>
+            <div class="hero-actions">
+                <button class="btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+                    <i class="fas fa-search"></i> Explorer maintenant
+                </button>
+                <button class="btn-primary" onclick="loadServices('transports')" style="background:rgba(255,255,255,0.1); color:white;">
+                    <i class="fas fa-bus"></i> Voir les transports
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="number">50+</div>
+                    <div class="label">Destinations</div>
+                </div>
+                <div class="stat">
+                    <div class="number">200+</div>
+                    <div class="label">Partenaires</div>
+                </div>
+                <div class="stat">
+                    <div class="number">1,500+</div>
+                    <div class="label">Voyageurs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <div class="container" id="services">
+        <div class="section-header">
+            <div class="subtitle"><i class="fas fa-sparkles"></i> Nos services</div>
+            <h2>Explorez nos offres</h2>
+            <p>Découvrez une sélection de services de qualité pour votre voyage</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="loadServices('transports')">
+                <i class="fas fa-bus"></i> Transports
+            </button>
+            <button class="tab" onclick="loadServices('hotels')">
+                <i class="fas fa-hotel"></i> Hôtels
+            </button>
+            <button class="tab" onclick="loadServices('restaurants')">
+                <i class="fas fa-utensils"></i> Restaurants
+            </button>
+            <button class="tab" onclick="loadServices('parks')">
+                <i class="fas fa-tree"></i> Parcs & Sites
+            </button>
+        </div>
+
+        <div id="services-container">
+            <div class="loading"><i class="fas fa-spinner fa-spin"></i> Chargement des services...</div>
+        </div>
+
+        <div id="result-section" class="result-section hidden">
+            <div id="result-content"></div>
+            <button class="btn-new-search" onclick="closeResult()">
+                <i class="fas fa-arrow-left"></i> Nouvelle recherche
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>EXODUS TRAVEL</h4>
+                <p>Sierra Leone Limited</p>
+                <p style="margin-top: 12px;">
+                    <i class="fas fa-map-marker-alt" style="color: var(--secondary);"></i> Freetown, Sierra Leone
+                </p>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <a onclick="loadServices('transports')"><i class="fas fa-bus"></i> Transports</a>
+                <a onclick="loadServices('hotels')"><i class="fas fa-hotel"></i> Hôtels</a>
+                <a onclick="loadServices('restaurants')"><i class="fas fa-utensils"></i> Restaurants</a>
+                <a onclick="loadServices('parks')"><i class="fas fa-tree"></i> Parcs</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone" style="color: var(--secondary);"></i> +221 33 123 45 67</p>
+                <p><i class="fas fa-envelope" style="color: var(--secondary);"></i> contact@exodus-travel.com</p>
+                <div class="social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 EXODUS TRAVEL Sierra Leone Limited. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- ===== MODAL RÉSERVATION ===== -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-ticket-alt"></i> Réserver</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="booking-form">
+                <input type="hidden" id="booking-service-id">
+                <div class="form-group">
+                    <label>Service</label>
+                    <div class="service-preview" id="booking-service-name"></div>
+                </div>
+                <div class="form-group">
+                    <label>Email du voyageur</label>
+                    <input type="email" id="booking-email" required placeholder="exemple@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> Téléphone</label>
+                    <input type="tel" id="booking-phone" placeholder="+221 77 123 45 67">
+                    <small style="font-size:0.7em; color:var(--gray-600); display:block; margin-top:5px;">Format: +221 XXXXXXXXX</small>
+                </div>
+                <div class="form-group">
+                    <label>Quantité</label>
+                    <input type="number" id="booking-quantity" min="1" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Demandes spéciales</label>
+                    <textarea id="booking-requests" rows="3" placeholder="Informations supplémentaires..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-check-circle"></i> Confirmer</button>
+                <button type="button" class="btn-submit btn-cancel" onclick="closeModal()"><i class="fas fa-times"></i> Annuler</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentServices = [];
+        let currentType = 'transports';
+
+        const defaultImages = {
+            transports: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=400&fit=crop',
+            hotels: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop',
+            restaurants: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop',
+            parks: 'https://images.unsplash.com/photo-1587923623987-c7e4083beb23?w=600&h=400&fit=crop'
+        };
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>"]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                if (m === '"') return '&quot;';
+                return m;
+            });
+        }
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            let stars = '';
+            for (let i = 0; i < fullStars; i++) stars += '<i class="fas fa-star"></i>';
+            if (halfStar) stars += '<i class="fas fa-star-half-alt"></i>';
+            for (let i = stars.length; i < 5; i++) stars += '<i class="far fa-star"></i>';
+            return stars;
+        }
+
+        async function loadServices(type) {
+            currentType = type;
+            
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            const activeTab = document.querySelector(`.tab[onclick*="${type}"]`);
+            if (activeTab) activeTab.classList.add('active');
+            
+            const container = document.getElementById('services-container');
+            container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Chargement...</div>';
+            document.getElementById('result-section').classList.add('hidden');
+
+            const urls = {
+                transports: '/api/transports',
+                hotels: '/api/hotels',
+                restaurants: '/api/restaurants',
+                parks: '/api/parks'
+            };
+
+            try {
+                const res = await fetch(urls[type]);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                currentServices = data;
+                displayServices(data, type);
+            } catch(e) {
+                console.error('Erreur:', e);
+                container.innerHTML = `
+                    <div style="text-align:center; padding:60px; background:white; border-radius:24px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size:3em; color:#c0392b;"></i>
+                        <p style="margin-top:16px; color:var(--gray-600);">
+                            Erreur de chargement. Vérifiez que le serveur est démarré.<br>
+                            <small style="color:#95a5a6;">${e.message}</small>
+                        </p>
+                        <button onclick="loadServices('${type}')" style="margin-top:20px; background:var(--primary); color:white; border:none; padding:12px 32px; border-radius:50px; cursor:pointer;">
+                            <i class="fas fa-redo"></i> Réessayer
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function displayServices(services, type) {
+            const container = document.getElementById('services-container');
+
+            if (!services || services.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:60px; background:white; border-radius:24px;">
+                        <i class="fas fa-calendar-times" style="font-size:3em; color:var(--secondary);"></i>
+                        <p style="margin-top:16px; color:var(--gray-600);">Aucun service disponible pour le moment.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const typeLabels = {
+                transports: '🚌 Transport',
+                hotels: '🏨 Hôtel',
+                restaurants: '🍽️ Restaurant',
+                parks: '🏞️ Parc'
+            };
+
+            container.innerHTML = `
+                <div class="services-grid">
+                    ${services.map((service, index) => {
+                        let serviceName = service.name;
+                        let location = '';
+                        let country = '';
+                        let imageUrl = defaultImages[type];
+                        
+                        if (type === 'transports') {
+                            serviceName = `${service.from_city || '?'} → ${service.to_city || '?'}`;
+                            location = service.from_city || 'Dakar';
+                            country = 'Sénégal';
+                        } else {
+                            serviceName = service.name || 'Service';
+                            location = service.city_name || 'Dakar';
+                            country = service.country_name || 'Sénégal';
+                        }
+
+                        if (service.image_url) {
+                            imageUrl = service.image_url;
+                        }
+
+                        const available = service.available_quantity || service.max_quantity || 0;
+                        const isLowStock = available <= 5 && available > 0;
+                        const availabilityClass = isLowStock ? 'low' : 'good';
+                        const availabilityText = isLowStock ? `⚠️ Plus que ${available} places !` : `${available} places disponibles`;
+                        const departureDate = service.start_time ? new Date(service.start_time).toLocaleString('fr-FR') : 'Date non définie';
+                        const rating = service.rating || 4.5;
+                        const price = service.price || 0;
+                        const description = service.description || 'Découvrez ce service exceptionnel avec EXODUS TRAVEL';
+                        const serviceId = service.service_id || service.id;
+
+                        return `
+                            <div class="service-card fade-up">
+                                <div class="card-image" style="background-image: url('${imageUrl}');">
+                                    <div class="card-badge"><i class="fas fa-star"></i> ${rating}</div>
+                                    <div class="card-type">${typeLabels[type]}</div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-title">${escapeHtml(serviceName)}</div>
+                                    <div class="card-location"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(location)}, ${escapeHtml(country)}</div>
+                                    <div class="card-rating">
+                                        ${generateStars(rating)}
+                                        <span class="rating-text">(${Math.round(rating * 10) / 10})</span>
+                                    </div>
+                                    <div class="departure-date"><i class="fas fa-calendar"></i> ${departureDate}</div>
+                                    <div class="availability ${availabilityClass}">${availabilityText}</div>
+                                    <div class="card-price">${price} USD <small>${type === 'hotels' ? '/nuit' : type === 'restaurants' ? '/personne' : ''}</small></div>
+                                    <div class="card-desc">${escapeHtml(description.substring(0, 100))}${description.length > 100 ? '...' : ''}</div>
+                                    <button class="btn-book ${available <= 0 ? 'disabled' : ''}" 
+                                            onclick="openBookingModal(${serviceId}, '${escapeHtml(serviceName).replace(/'/g, "\\'")}', ${price}, ${available})"
+                                            ${available <= 0 ? 'disabled' : ''}>
+                                        <i class="fas fa-${available <= 0 ? 'times-circle' : 'calendar-check'}"></i> 
+                                        ${available <= 0 ? 'Complet' : 'Réserver maintenant'}
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function openBookingModal(serviceId, serviceName, price, available) {
+            if (available <= 0) {
+                alert('Désolé, ce service n\'a plus de places disponibles.');
+                return;
+            }
+
+            document.getElementById('booking-service-id').value = serviceId;
+            document.getElementById('booking-service-name').innerHTML = `
+                ${escapeHtml(serviceName)}<br>
+                <small style="color:var(--secondary);">💰 ${price} USD</small><br>
+                <small style="color:var(--gray-600);">📊 ${available} places disponibles</small>
+            `;
+            document.getElementById('booking-email').value = '';
+            document.getElementById('booking-phone').value = '';
+            document.getElementById('booking-quantity').value = 1;
+            document.getElementById('booking-quantity').max = available;
+            document.getElementById('booking-requests').value = '';
+            document.getElementById('booking-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('booking-modal').style.display = 'none';
+        }
+
+        function closeResult() {
+            document.getElementById('result-section').classList.add('hidden');
+            loadServices(currentType);
+        }
+
+        document.getElementById('booking-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const quantity = parseInt(document.getElementById('booking-quantity').value);
+            const maxPlaces = parseInt(document.getElementById('booking-quantity').max);
+
+            if (quantity > maxPlaces) {
+                alert(`Désolé, il ne reste que ${maxPlaces} place(s) disponible(s).`);
+                return;
+            }
+
+            const data = {
+                service_id: parseInt(document.getElementById('booking-service-id').value),
+                quantity: quantity,
+                user_email: document.getElementById('booking-email').value,
+                phone_number: document.getElementById('booking-phone').value,
+                special_requests: document.getElementById('booking-requests').value
+            };
+
+            if (!data.user_email) {
+                alert('Veuillez entrer votre adresse email');
+                return;
+            }
+
+            closeModal();
+            const container = document.getElementById('services-container');
+            container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Confirmation en cours...</div>';
+
+            try {
+                const res = await fetch('/api/book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    document.getElementById('result-content').innerHTML = `
+                        <div class="success-message"><i class="fas fa-check-circle"></i> Réservation confirmée !</div>
+                        <p><strong>Référence :</strong> ${result.booking_reference}</p>
+                        <p><strong>Total :</strong> ${result.total_price} USD</p>
+                        <p>Un email de confirmation vous a été envoyé.</p>
+                        <div class="qr-code">
+                            <img src="${result.qr_code}" alt="QR Code">
+                            <p><i class="fas fa-qrcode"></i> Présentez ce QR code à l'embarquement</p>
+                        </div>
+                    `;
+                    document.getElementById('result-section').classList.remove('hidden');
+                    document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert('Erreur: ' + (result.error || 'Réservation échouée'));
+                    loadServices(currentType);
+                }
+            } catch(e) {
+                console.error('Erreur:', e);
+                alert('Erreur de connexion au serveur');
+                loadServices(currentType);
+            }
+        });
+
+        // Chargement initial
+        loadServices('transports');
+    </script>
+</body>
+</html>

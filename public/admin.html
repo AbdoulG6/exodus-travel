@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXODUS TRAVEL - Administration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <script>
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/admin/check');
+                if (!response.ok) {
+                    window.location.href = '/login.html';
+                }
+            } catch (error) {
+                window.location.href = '/login.html';
+            }
+        }
+        checkAuth();
+
+        async function logout() {
+            await fetch('/api/admin/logout', { method: 'POST' });
+            window.location.href = '/login.html';
+        }
+    </script>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">EXODUS<span>TRAVEL</span><small>Sierra Leone Limited</small></div>
+        </div>
+        <div class="user-info-sidebar">
+            <div class="user-greeting">Bonjour</div>
+            <div class="user-name"><i class="fas fa-user-shield"></i> Administrateur</div>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-item active" onclick="showSection('dashboard')"><i class="fas fa-tachometer-alt"></i><span>Tableau de bord</span></div>
+            <div class="menu-item" onclick="showSection('bookings')"><i class="fas fa-ticket-alt"></i><span>Réservations</span></div>
+            <div class="menu-item" onclick="showSection('transports')"><i class="fas fa-bus"></i><span>Transports</span></div>
+            <div class="menu-item" onclick="showSection('hotels')"><i class="fas fa-hotel"></i><span>Hôtels</span></div>
+            <div class="menu-item" onclick="showSection('restaurants')"><i class="fas fa-utensils"></i><span>Restaurants</span></div>
+            <div class="menu-item" onclick="showSection('parks')"><i class="fas fa-tree"></i><span>Parcs & Sites</span></div>
+        </div>
+        <div class="logout-section">
+            <div class="logout-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Déconnexion</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="page-title" id="page-title">Tableau de bord</div>
+            <div class="top-bar-right">
+                <div class="admin-info">
+                    <span>Admin</span>
+                    <div class="admin-avatar"><i class="fas fa-user"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboard-section" class="section active">
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-info"><h3>🚌 Transports</h3><div class="stat-number" id="stat-transport">-</div></div><div class="stat-icon"><i class="fas fa-bus"></i></div></div>
+                <div class="stat-card"><div class="stat-info"><h3>🏨 Hôtels</h3><div class="stat-number" id="stat-hotel">-</div></div><div class="stat-icon"><i class="fas fa-hotel"></i></div></div>
+                <div class="stat-card"><div class="stat-info"><h3>🍽️ Restaurants</h3><div class="stat-number" id="stat-restaurant">-</div></div><div class="stat-icon"><i class="fas fa-utensils"></i></div></div>
+                <div class="stat-card"><div class="stat-info"><h3>🏞️ Parcs</h3><div class="stat-number" id="stat-park">-</div></div><div class="stat-icon"><i class="fas fa-tree"></i></div></div>
+            </div>
+            <div class="charts-row"><div class="chart-card"><h3><i class="fas fa-chart-pie"></i> Réservations par type</h3><canvas id="bookings-chart"></canvas></div><div class="chart-card"><h3><i class="fas fa-chart-line"></i> Évolution mensuelle</h3><canvas id="trend-chart"></canvas></div></div>
+            <div class="activities-card"><h3><i class="fas fa-clock"></i> Dernières activités</h3><div id="recent-activities"></div></div>
+        </div>
+
+        <div id="bookings-section" class="section"><div class="card"><div class="card-header"><h3><i class="fas fa-ticket-alt"></i> Toutes les réservations</h3></div><div id="all-bookings-list"><div class="empty-message">Chargement...</div></div></div></div>
+        
+        <div id="transports-section" class="section"><div class="card"><div class="card-header"><h3><i class="fas fa-bus"></i> Liste des transports</h3><button onclick="openTransportModal()"><i class="fas fa-plus"></i> Ajouter</button></div><div id="transports-list"><div class="empty-message">Chargement...</div></div></div></div>
+        
+        <div id="hotels-section" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-hotel"></i> Hôtels</h3>
+                    <button onclick="openHotelModal()"><i class="fas fa-plus"></i> Ajouter</button>
+                </div>
+                <div id="hotels-list"><div class="empty-message">Chargement...</div></div>
+            </div>
+        </div>
+        
+        <div id="restaurants-section" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-utensils"></i> Restaurants</h3>
+                    <button onclick="openRestaurantModal()"><i class="fas fa-plus"></i> Ajouter</button>
+                </div>
+                <div id="restaurants-list"><div class="empty-message">Chargement...</div></div>
+            </div>
+        </div>
+        
+        <div id="parks-section" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-tree"></i> Parcs & Sites</h3>
+                    <button onclick="openParkModal()"><i class="fas fa-plus"></i> Ajouter</button>
+                </div>
+                <div id="parks-list"><div class="empty-message">Chargement...</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TRANSPORT -->
+    <!-- MODAL TRANSPORT -->
+<div id="transport-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-header">
+            <h3 id="modal-title">Ajouter un transport</h3>
+            <span class="close-modal" onclick="closeTransportModal()">&times;</span>
+        </div>
+        <form id="transport-form">
+            <input type="hidden" id="transport-id">
+            <div class="form-group">
+                <label>Ville départ</label>
+                <select id="from-city" required></select>
+            </div>
+            <div class="form-group">
+                <label>Ville arrivée</label>
+                <select id="to-city" required></select>
+            </div>
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex:1">
+                    <label>Prix (USD)</label>
+                    <input type="number" id="price" step="0.01" required>
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label>Places</label>
+                    <input type="number" id="seats" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Date & heure</label>
+                <input type="datetime-local" id="datetime" required>
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" id="transport-image" accept="image/*" style="padding: 5px;">
+                <div id="transport-image-preview" style="margin-top:8px; display:none;">
+                    <img src="" style="max-width:80px; border-radius:6px;">
+                    <button type="button" onclick="clearImage('transport')" style="background:#e74c3c; padding:2px 8px; margin-left:8px;">❌</button>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:15px;">
+                <button type="submit" style="background:#c0392b; padding:10px;">Enregistrer</button>
+                <button type="button" onclick="closeTransportModal()" style="background:#95a5a6; padding:10px;">Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- MODAL HÔTEL -->
+<div id="hotel-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-header">
+            <h3 id="hotel-modal-title">Ajouter un hôtel</h3>
+            <span class="close-modal" onclick="closeHotelModal()">&times;</span>
+        </div>
+        <form id="hotel-form">
+            <input type="hidden" id="hotel-id">
+            <div class="form-group"><label>Nom de l'hôtel</label><input type="text" id="hotel-name" required></div>
+            <div class="form-group"><label>Ville</label><select id="hotel-city" required></select></div>
+            <div class="form-group"><label>Description</label><textarea id="hotel-description" rows="2"></textarea></div>
+            
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex:1">
+                    <label>Prix (USD)</label>
+                    <input type="number" id="hotel-price" step="0.01" required>
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label>Chambres</label>
+                    <input type="number" id="hotel-rooms" required>
+                </div>
+            </div>
+            
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex:1">
+                    <label>Note (0-5)</label>
+                    <input type="number" id="hotel-rating" step="0.1" min="0" max="5" value="4.0">
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label>Fourchette de prix</label>
+                    <select id="hotel-price-range">
+                        <option value="$">$ (Économique)</option>
+                        <option value="$$" selected>$$ (Modéré)</option>
+                        <option value="$$$">$$$ (Luxe)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" id="hotel-image" accept="image/*" style="padding: 5px;">
+                <div id="hotel-image-preview" style="margin-top:8px; display:none;">
+                    <img src="" style="max-width:80px; border-radius:6px;">
+                    <button type="button" onclick="clearImage('hotel')" style="background:#e74c3c; border:none; padding:4px 8px; border-radius:4px; margin-left:8px; cursor:pointer;">✖ Supprimer</button>
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:10px; margin-top:15px;">
+                <button type="submit" style="background:#c0392b; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;">💾 Enregistrer</button>
+                <button type="button" onclick="closeHotelModal()" style="background:#95a5a6; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;">❌ Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- MODAL RESTAURANT -->
+<div id="restaurant-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-header">
+            <h3 id="restaurant-modal-title">Ajouter un restaurant</h3>
+            <span class="close-modal" onclick="closeRestaurantModal()">&times;</span>
+        </div>
+        <form id="restaurant-form">
+            <input type="hidden" id="restaurant-id">
+            <div class="form-group"><label>Nom du restaurant</label><input type="text" id="restaurant-name" required></div>
+            <div class="form-group"><label>Ville</label><select id="restaurant-city" required></select></div>
+            <div class="form-group"><label>Description</label><textarea id="restaurant-description" rows="2"></textarea></div>
+            
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex:1">
+                    <label>Prix (USD)</label>
+                    <input type="number" id="restaurant-price" step="0.01" required>
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label>Capacité</label>
+                    <input type="number" id="restaurant-capacity" required>
+                </div>
+            </div>
+            
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex:1">
+                    <label>Durée moyenne</label>
+                    <input type="text" id="restaurant-duration" placeholder="2 heures" value="2 heures">
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label>Note (0-5)</label>
+                    <input type="number" id="restaurant-rating" step="0.1" min="0" max="5" value="4.0">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Fourchette de prix</label>
+                <select id="restaurant-price-range">
+                    <option value="$">$ (Bon marché)</option>
+                    <option value="$$" selected>$$ (Modéré)</option>
+                    <option value="$$$">$$$ (Cher)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" id="restaurant-image" accept="image/*" style="padding: 5px;">
+                <div id="restaurant-image-preview" style="margin-top:8px; display:none;">
+                    <img src="" style="max-width:80px; border-radius:6px;">
+                    <button type="button" onclick="clearImage('restaurant')" style="background:#e74c3c; border:none; padding:4px 8px; border-radius:4px; margin-left:8px; cursor:pointer;">✖ Supprimer</button>
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:10px; margin-top:15px;">
+                <button type="submit" style="background:#c0392b; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;">💾 Enregistrer</button>
+                <button type="button" onclick="closeRestaurantModal()" style="background:#95a5a6; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;">❌ Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+   <!-- MODAL PARC -->
+<div id="park-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-header">
+            <h3 id="park-modal-title">Ajouter un parc / site</h3>
+            <span class="close-modal" onclick="closeParkModal()">&times;</span>
+        </div>
+        <form id="park-form">
+            <input type="hidden" id="park-id">
+            <div class="form-group"><label>Nom du parc / site</label><input type="text" id="park-name" required></div>
+            <div class="form-group"><label>Ville</label><select id="park-city" required></select></div>
+            <div class="form-group"><label>Description</label><textarea id="park-description" rows="2"></textarea></div>
+            
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex:1">
+                    <label>Prix (USD)</label>
+                    <input type="number" id="park-price" step="0.01" required>
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label>Capacité</label>
+                    <input type="number" id="park-capacity" required>
+                </div>
+            </div>
+            
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex:1">
+                    <label>Durée visite</label>
+                    <input type="text" id="park-duration" placeholder="1 journée" value="1 journée">
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label>Note (0-5)</label>
+                    <input type="number" id="park-rating" step="0.1" min="0" max="5" value="4.5">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Fourchette de prix</label>
+                <select id="park-price-range">
+                    <option value="$">$ (Bon marché)</option>
+                    <option value="$$" selected>$$ (Modéré)</option>
+                    <option value="$$$">$$$ (Cher)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" id="park-image" accept="image/*" style="padding: 5px;">
+                <div id="park-image-preview" style="margin-top:8px; display:none;">
+                    <img src="" style="max-width:80px; border-radius:6px;">
+                    <button type="button" onclick="clearImage('park')" style="background:#e74c3c; border:none; padding:4px 8px; border-radius:4px; margin-left:8px; cursor:pointer;">✖ Supprimer</button>
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:10px; margin-top:15px;">
+                <button type="submit" style="background:#c0392b; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;">💾 Enregistrer</button>
+                <button type="button" onclick="closeParkModal()" style="background:#95a5a6; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;">❌ Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <script src="/js/admin.js"></script>
+    <script>
+        // Fonction pour effacer l'image sélectionnée
+        function clearImage(type) {
+            const input = document.getElementById(`${type}-image`);
+            const preview = document.getElementById(`${type}-image-preview`);
+            if (input) input.value = '';
+            if (preview) preview.style.display = 'none';
+        }
+        
+        // Fonction pour prévisualiser l'image
+        function setupImagePreview(inputId, previewId) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
+            input.addEventListener('change', function(e) {
+                const preview = document.getElementById(previewId);
+                const file = e.target.files[0];
+                
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        preview.style.display = 'block';
+                        preview.querySelector('img').src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.style.display = 'none';
+                }
+            });
+        }
+        
+        // Initialiser les prévisualisations
+        document.addEventListener('DOMContentLoaded', function() {
+            setupImagePreview('transport-image', 'transport-image-preview');
+            setupImagePreview('hotel-image', 'hotel-image-preview');
+            setupImagePreview('restaurant-image', 'restaurant-image-preview');
+            setupImagePreview('park-image', 'park-image-preview');
+        });
+    </script>
+</body>
+</html>

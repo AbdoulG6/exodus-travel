@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement réussi - EXODUS TRAVEL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1A3A2F 0%, #2D5A47 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .icon { font-size: 4em; color: #27ae60; margin-bottom: 20px; }
+        h1 { color: #1A3A2F; font-size: 1.8em; margin-bottom: 10px; }
+        p { color: #718096; margin-bottom: 8px; line-height: 1.6; }
+        .reference { 
+            background: #f5f7fa; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin: 20px 0;
+            font-family: monospace;
+            color: #1A3A2F;
+        }
+        .btn {
+            display: inline-block;
+            background: #1A3A2F;
+            color: white;
+            padding: 14px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #D4A843;
+            color: #1A3A2F;
+            transform: translateY(-2px);
+        }
+        .btn i { margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon"><i class="fas fa-check-circle"></i></div>
+        <h1>✅ Paiement réussi !</h1>
+        <p>Votre réservation est maintenant confirmée.</p>
+        <p>Un email de confirmation vous a été envoyé.</p>
+        <div class="reference" id="reference">Référence: Chargement...</div>
+        <a href="/" class="btn"><i class="fas fa-home"></i> Retour à l'accueil</a>
+    </div>
+    <script>
+        // Récupérer la référence depuis l'URL
+        const params = new URLSearchParams(window.location.search);
+        const ref = params.get('reference');
+        if (ref) {
+            document.getElementById('reference').textContent = 'Référence: ' + ref;
+        }
+    </script>
+</body>
+</html>
